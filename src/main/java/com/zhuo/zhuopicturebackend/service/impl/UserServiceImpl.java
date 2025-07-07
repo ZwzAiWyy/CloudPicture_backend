@@ -2,12 +2,14 @@ package com.zhuo.zhuopicturebackend.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhuo.zhuopicturebackend.constant.UserConstant;
 import com.zhuo.zhuopicturebackend.exception.BusinessException;
 import com.zhuo.zhuopicturebackend.exception.ErrorCode;
+import com.zhuo.zhuopicturebackend.model.dto.user.UserQueryRequest;
 import com.zhuo.zhuopicturebackend.model.entity.User;
 import com.zhuo.zhuopicturebackend.model.enums.UserRoleEnum;
 import com.zhuo.zhuopicturebackend.model.vo.LoginUserVO;
@@ -214,13 +216,43 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public boolean userLogout(HttpServletRequest request) {
         // 先判断是否已登录
         Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
-        if (userObj == null ) {
+        if (userObj == null) {
             throw new BusinessException(ErrorCode.OPERATION_ERROR, "未登录");
         }
         // 移除登录态
         request.getSession().removeAttribute(USER_LOGIN_STATE);
         return true;
     }
+
+    /**
+     * 获取查询条件
+     *
+     * @param userQueryRequest 用户查询条件
+     * @return 查询条件
+     */
+    @Override
+    public QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest) {
+        if (userQueryRequest == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
+        }
+        Long id = userQueryRequest.getId();
+        String userAccount = userQueryRequest.getUserAccount();
+        String userName = userQueryRequest.getUserName();
+        String userProfile = userQueryRequest.getUserProfile();
+        String userRole = userQueryRequest.getUserRole();
+        String sortField = userQueryRequest.getSortField();
+        String sortOrder = userQueryRequest.getSortOrder();
+
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(ObjUtil.isNotNull(id), "id", id);
+        queryWrapper.eq(StrUtil.isNotBlank(userRole), "userRole", userRole);
+        queryWrapper.like(StrUtil.isNotBlank(userAccount), "userAccount", userAccount);
+        queryWrapper.like(StrUtil.isNotBlank(userName), "userName", userName);
+        queryWrapper.like(StrUtil.isNotBlank(userProfile), "userProfile", userProfile);
+        queryWrapper.orderBy(StrUtil.isNotEmpty(sortField), sortOrder.equals("ascend"), sortField);
+        return queryWrapper;
+    }
+
 
 }
 

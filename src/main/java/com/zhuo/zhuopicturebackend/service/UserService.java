@@ -1,5 +1,7 @@
 package com.zhuo.zhuopicturebackend.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zhuo.zhuopicturebackend.model.dto.user.UserQueryRequest;
 import com.zhuo.zhuopicturebackend.model.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhuo.zhuopicturebackend.model.vo.LoginUserVO;
@@ -83,4 +85,12 @@ public interface UserService extends IService<User> {
      * @return
      */
     boolean userLogout(HttpServletRequest request);
+
+    /**
+     * 获取查询条件
+     *
+     * @param userQueryRequest
+     * @return
+     */
+    QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest);
 }
