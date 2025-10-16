@@ -18,7 +18,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * 文件接口
+ *
+ * @author zhuo
+ */
 @RestController
 @RequestMapping("/file")
 @Slf4j

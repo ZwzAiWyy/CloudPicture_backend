@@ -2,6 +2,10 @@ server:
   port: 8080
   servlet:
     context-path: /api
+    # cookie 30天过期
+    session:
+      cookie:
+        max-age: 2592000
 
 spring:
   application:
@@ -16,6 +20,21 @@ spring:
   servlet:
     multipart:
       max-file-size: 10MB
+  # Redis 配置
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    timeout: 5000
+    #用于Redis测试而改变环境
+  #  profiles:
+  #    active: local
+  # session 配置
+  session:
+    store-type: redis
+    # session 30天过期
+    timeout: 2592000
+
 
 mybatis-plus:
   configuration:

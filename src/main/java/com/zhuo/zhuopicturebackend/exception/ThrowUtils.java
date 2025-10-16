@@ -1,5 +1,10 @@
 package com.zhuo.zhuopicturebackend.exception;
 
+/**
+ * 抛异常工具类
+ *
+ * @author zhuo
+ */
 public class ThrowUtils {
 
     /**

@@ -21,6 +21,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * 用户接口
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -29,6 +32,7 @@ public class UserController {
     private UserService userService;
 
     // 用户模块（用户登录）
+
     /**
      * 用户注册
      */
@@ -163,7 +167,6 @@ public class UserController {
         userVOPage.setRecords(userVOList);
         return ResultUtils.success(userVOPage);
     }
-
 
 
 }

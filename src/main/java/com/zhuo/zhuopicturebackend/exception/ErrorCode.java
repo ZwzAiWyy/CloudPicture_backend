@@ -2,6 +2,9 @@ package com.zhuo.zhuopicturebackend.exception;
 
 import lombok.Getter;
 
+/**
+ * 错误码
+ */
 @Getter
 public enum ErrorCode {
 
