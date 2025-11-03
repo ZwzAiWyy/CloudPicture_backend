@@ -2,6 +2,7 @@ package com.zhuo.zhuopicturebackend.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zhuo.zhuopicturebackend.api.aliyunai.model.CreateOutPaintingTaskResponse;
 import com.zhuo.zhuopicturebackend.model.dto.picture.*;
 import com.zhuo.zhuopicturebackend.model.entity.Picture;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -140,5 +141,13 @@ public interface PictureService extends IService<Picture> {
      * @param loginUser 登录用户
      */
     void editPictureByBatch(PictureEditByBatchRequest pictureEditByBatchRequest, User loginUser);
+
+    /**
+     * 创建图片扩图任务
+     *
+     * @param createPictureOutPaintingTaskRequest 创建图片扩图任务请求
+     * @param loginUser 登录用户
+     */
+    CreateOutPaintingTaskResponse createPictureOutPaintingTask(CreatePictureOutPaintingTaskRequest createPictureOutPaintingTaskRequest, User loginUser);
 
 }
